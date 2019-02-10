@@ -14,9 +14,7 @@ namespace NumberConverter.Interfaces
         string MaxSupportedString { get; }
         bool IsValid(double number);
         bool IsValid(string number);
-        string ConvertToWords(string number);
-        string ConvertToWords(double number);
-        string ConvertToCurrencyWords(string number);
-        string ConvertToCurrencyWords(double number);
+        string Convert(string number, ConversionType numberFormat = ConversionType.ToWords, CurrencyType currencyType = CurrencyType.None);
+        string Convert(double number, ConversionType numberFormat = ConversionType.ToWords, CurrencyType currencyType = CurrencyType.None);
     }
 }

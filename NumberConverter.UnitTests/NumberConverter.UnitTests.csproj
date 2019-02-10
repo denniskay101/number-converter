@@ -54,6 +54,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NumberConverter_ConvertToCurrency_UnitTests.cs" />
+    <Compile Include="NumberConverter_ConvertToNumerals_UnitTests.cs" />
     <Compile Include="NumberConverter_ConvertToWords_UnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

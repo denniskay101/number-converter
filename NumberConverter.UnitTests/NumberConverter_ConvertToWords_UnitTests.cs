@@ -33,9 +33,9 @@ namespace NumberConverter.UnitTests
         [TestCase(17, "Seventeen")]
         [TestCase(18, "Eighteen")]
         [TestCase(19, "Nineteen")]
-        public void ConvertToWords_TestFirst19DistincNumbers(double input, string expected)
+        public void Convert_TestFirst19DistincNumbers(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -47,9 +47,9 @@ namespace NumberConverter.UnitTests
         [TestCase(70, "Seventy")]
         [TestCase(80, "Eighty")]
         [TestCase(90, "Ninety")]
-        public void ConvertToWords_TestAllNumbersEndingWithTy(double input, string expected)
+        public void Convert_TestAllNumbersEndingWithTy(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -57,9 +57,9 @@ namespace NumberConverter.UnitTests
         [TestCase(21.47, "Twenty one point four seven")]
         [TestCase(32.609, "Thirty two point six zero nine")]
         [TestCase(1.23456789, "One point two three four five six seven eight nine")]
-        public void ConvertToWords_TestNumbersWithFractionalPart(double input, string expected)
+        public void Convert_TestNumbersWithFractionalPart(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -71,9 +71,9 @@ namespace NumberConverter.UnitTests
         [TestCase(-21.47, "Negative twenty one point four seven")]
         [TestCase(-32.609, "Negative thirty two point six zero nine")]
         [TestCase(-1.23456789, "Negative one point two three four five six seven eight nine")]
-        public void ConvertToWords_TestNegativeNumbers(double input, string expected)
+        public void Convert_TestNegativeNumbers(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -88,7 +88,7 @@ namespace NumberConverter.UnitTests
         [TestCase(99, "Ninety nine")]
         public void Convert_0_99_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -117,7 +117,7 @@ namespace NumberConverter.UnitTests
         [TestCase(999, "Nine hundred and ninety nine")]
         public void Convert_100_999_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -149,7 +149,7 @@ namespace NumberConverter.UnitTests
         [TestCase(9999, "Nine thousand, nine hundred and ninety nine")]
         public void Convert_1000_9999_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -189,7 +189,7 @@ namespace NumberConverter.UnitTests
         [TestCase(99999, "Ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_10000_99999_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -230,7 +230,7 @@ namespace NumberConverter.UnitTests
         [TestCase(999999, "Nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_100000_999999_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -273,7 +273,7 @@ namespace NumberConverter.UnitTests
         [TestCase(9999999, "Nine million, nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_1000000_9999999_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -326,7 +326,7 @@ namespace NumberConverter.UnitTests
         [TestCase(99999999, "Ninety nine million, nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_10000000_99999999_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -381,7 +381,7 @@ namespace NumberConverter.UnitTests
         [TestCase(999999999, "Nine hundred and ninety nine million, nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_100000000_999999999_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -414,7 +414,7 @@ namespace NumberConverter.UnitTests
         [TestCase(999999999999, "Nine hundred and ninety nine billion, nine hundred and ninety nine million, nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_Billions_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -428,7 +428,7 @@ namespace NumberConverter.UnitTests
         [TestCase(999999999999999999, "Over one quadrillion")]
         public void Convert_Trillions_Test(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -436,7 +436,7 @@ namespace NumberConverter.UnitTests
         [TestCase("999999999999999999", "Nine hundred and ninety nine quadrillion, nine hundred and ninety nine trillion, nine hundred and ninety nine billion, nine hundred and ninety nine million, nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_Quadrillions_Test(string input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -444,7 +444,7 @@ namespace NumberConverter.UnitTests
         [TestCase("999999999999999999999", "Nine hundred and ninety nine quintillion, nine hundred and ninety nine quadrillion, nine hundred and ninety nine trillion, nine hundred and ninety nine billion, nine hundred and ninety nine million, nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_Quintillions_Test(string input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -452,7 +452,7 @@ namespace NumberConverter.UnitTests
         [TestCase("999999999999999999999999", "Nine hundred and ninety nine sextillion, nine hundred and ninety nine quintillion, nine hundred and ninety nine quadrillion, nine hundred and ninety nine trillion, nine hundred and ninety nine billion, nine hundred and ninety nine million, nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_Sextillions_Test(string input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -460,7 +460,7 @@ namespace NumberConverter.UnitTests
         [TestCase("999999999999999999999999999", "Nine hundred and ninety nine septillion, nine hundred and ninety nine sextillion, nine hundred and ninety nine quintillion, nine hundred and ninety nine quadrillion, nine hundred and ninety nine trillion, nine hundred and ninety nine billion, nine hundred and ninety nine million, nine hundred and ninety nine thousand, nine hundred and ninety nine")]
         public void Convert_Septillions_Test(string input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -468,39 +468,39 @@ namespace NumberConverter.UnitTests
         [TestCase("9999999999999999999999999999", "Over one octillion")]
         public void Convert_OctillionAndOver_Test(string input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
         [TestCase(-32768, "Negative thirty two thousand, seven hundred and sixty eight", Description = "Smallest Int16/short")]
         [TestCase(-2147483648, "Negative two billion, one hundred and forty seven million, four hundred and eighty three thousand, six hundred and forty eight", Description = "Smallest Int32/int")]
         [TestCase(-9223372036854775808, "Over negative one quadrillion", Description = "Smallest Int64/long")]
-        public void ConvertToWords_TestMinimums(double input, string expected)
+        public void Convert_TestMinimums(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
         [TestCase("-9,223,372,036,854,775,808", "Negative nine quintillion, two hundred and twenty three quadrillion, three hundred and seventy two trillion, thirty six billion, eight hundred and fifty four million, seven hundred and seventy five thousand, eight hundred and eight", Description = "Smallest Int64/long")]
-        public void ConvertToWords_TestMinimums(string input, string expected)
+        public void Convert_TestMinimums(string input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
         [TestCase(32768, "Thirty two thousand, seven hundred and sixty eight", Description = "Largest Int16/short")]
         [TestCase(2147483648, "Two billion, one hundred and forty seven million, four hundred and eighty three thousand, six hundred and forty eight", Description = "Largest Int32/int")]
         [TestCase(9223372036854775807, "Over one quadrillion", Description = "Largest Int64/long")]
-        public void ConvertToWords_TestMaximums(double input, string expected)
+        public void Convert_TestMaximums(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
         [TestCase("9,223,372,036,854,775,807", "Nine quintillion, two hundred and twenty three quadrillion, three hundred and seventy two trillion, thirty six billion, eight hundred and fifty four million, seven hundred and seventy five thousand, eight hundred and seven", Description = "Largest Int64/long")]
-        public void ConvertToWords_TestMaximums(string input, string expected)
+        public void Convert_TestMaximums(string input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -513,9 +513,9 @@ namespace NumberConverter.UnitTests
         [TestCase(1.99999999999999, "One point nine nine nine nine nine nine nine nine nine nine nine nine nine nine")]
         [TestCase(99.99999999999999999, "One hundred")]
         [TestCase(999999999999999.99999999999999999, "Over one quadrillion")]
-        public void ConvertToWords_TestDecimails(double input, string expected)
+        public void Convert_TestDecimails(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -528,9 +528,9 @@ namespace NumberConverter.UnitTests
         [TestCase(-1.99999999999999, "Negative one point nine nine nine nine nine nine nine nine nine nine nine nine nine nine")]
         [TestCase(-99.99999999999999999, "Negative one hundred")]
         [TestCase(-999999999999999.99999999999999999, "Over negative one quadrillion")]
-        public void ConvertToWords_TestNegativeDecimails(double input, string expected)
+        public void Convert_TestNegativeDecimails(double input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -538,9 +538,9 @@ namespace NumberConverter.UnitTests
         [TestCase("19.0123456789", "Nineteen point zero one two three four five six seven eight nine")]
         [TestCase("1.999999999999999999", "One point nine nine nine nine nine nine nine nine nine nine nine nine nine nine nine nine nine nine")]
         [TestCase("9999999999999999999999999999.654", "Over one octillion")]
-        public void ConvertToWords_TestDecimails(string input, string expected)
+        public void Convert_TestDecimails(string input, string expected)
         {
-            string actual = numberConverter.ConvertToWords(input);
+            string actual = numberConverter.Convert(input);
             Assert.AreEqual(expected, actual);
         }
 
@@ -585,9 +585,9 @@ namespace NumberConverter.UnitTests
         [TestCase("-1,234.9876.92")]
         [TestCase("9-223372036854775808")]
         [TestCase("-9,223,372,036,854,7758,08")]
-        public void ConvertToWords_ShouldReturnInvalidNumber__IfTheNumberIsValid(string input)
+        public void Convert_ShouldReturnInvalidNumber__IfTheNumberIsValid(string input)
         {
-            Assert.AreEqual("Invalid number", numberConverter.ConvertToWords(input));
+            Assert.AreEqual("Invalid number", numberConverter.Convert(input));
         }
 
         [TestCase("1234")]

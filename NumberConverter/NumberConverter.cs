@@ -12,12 +12,14 @@ namespace NumberConverter
         private string[] _0to19;
         private string[] _ty;
         private string[] _Zeros;
+        private string[] _Currencies;
 
         public NumberConverter()
         {
             _0to19 = new string[] { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", };
             _ty = new string[] { "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
             _Zeros = new string[] { "", "", "hundred", "thousand", "", "", "million", "", "", "billion", "", "", "trillion", "", "", "quadrillion", "", "", "quintillion", "", "", "sextillion", "", "", "septillion", };
+            _Currencies = new string[] { "", "shillings", "dollars" };
         }
 
         /// <summary>
@@ -64,25 +66,25 @@ namespace NumberConverter
             }
         }
 
-        public string ConvertToWords(string number)
+        public string Convert(string number, ConversionType conversionType = ConversionType.ToWords, CurrencyType currencyType = CurrencyType.None)
         {
             if(IsValid(number))
             {
                 if(number.Contains("."))
-                    return ConvertQuadrillionAndOverToWords(number);
+                    return ConvertQuadrillionAndOverToWords(number, conversionType, currencyType);
 
                 if (double.Parse(number) >= 0 && double.Parse(number) <= MaxSupportedNumber)
-                    return ConvertToWords(double.Parse(number));
+                    return Convert(double.Parse(number));
                 else
                 {
-                    return ConvertQuadrillionAndOverToWords(number);
+                    return ConvertQuadrillionAndOverToWords(number, conversionType, currencyType);
                 }
             }
 
             return "Invalid number";
         }
 
-        public string ConvertToWords(double number)
+        public string Convert(double number, ConversionType conversionType = ConversionType.ToWords, CurrencyType currencyType = CurrencyType.None)
         {
             if (number.ToString().Contains("E+"))
             {
@@ -90,7 +92,7 @@ namespace NumberConverter
                     return "Over negative one quadrillion";
                 else
                     return "Over one quadrillion";
-            } 
+            }
 
             StringBuilder numberInWords = new StringBuilder();
 
@@ -99,8 +101,20 @@ namespace NumberConverter
                 isNegative = true;
 
             string sNumber = number.ToString();
-
             double wholeNumberPart = number;
+
+            if (conversionType == ConversionType.ToNumerals)
+            {
+                if (currencyType != CurrencyType.None)
+                    return numberInWords.Append(string.Format("{0:N2} {1}", number, _Currencies[(int)currencyType])).ToString();
+
+                if (!sNumber.Contains("."))
+                    numberInWords.Append(string.Format("{0:N0}", number));
+                else
+                    numberInWords.Append(string.Format("{0:N" + sNumber.Substring(sNumber.IndexOf(".") + 1).Length.ToString() + "}", number));
+
+                return numberInWords.ToString();
+            }
 
             //Fixes bug on numbers with more decimal points than can be handled by a double 
             //by rounding off the number
@@ -154,11 +168,33 @@ namespace NumberConverter
 
             if (fractionalPart != null)
             {
-                numberInWords.Append(" point");
-                foreach (var num in fractionalPart.ToCharArray())
+                if(conversionType == ConversionType.ToCurrency)
                 {
-                    numberInWords.Append($" {Convert_0_99(double.Parse(num.ToString())).ToLower()}");
+                    if (fractionalPart.Length > 2)
+                        fractionalPart = fractionalPart.Substring(0, 2);
+                    if(currencyType != CurrencyType.None)
+                        numberInWords.Append($" {_Currencies[(int)currencyType]} and {Convert_0_99(double.Parse(fractionalPart.ToString())).ToLower()} cents");
+                    else
+                        numberInWords.Append($" and {Convert_0_99(double.Parse(fractionalPart.ToString())).ToLower()} cents");
                 }
+                else
+                {
+                    numberInWords.Append(" point");
+                    foreach (var num in fractionalPart.ToCharArray())
+                    {
+                        numberInWords.Append($" {Convert_0_99(double.Parse(num.ToString())).ToLower()}");
+                    }
+                }
+            }
+            else
+            {
+                if (conversionType == ConversionType.ToCurrency)
+                {
+                    if(currencyType != CurrencyType.None)
+                    {
+                        numberInWords.Append($" {_Currencies[(int)currencyType]}");
+                    }
+                } 
             }
 
             if (isNegative)
@@ -167,7 +203,7 @@ namespace NumberConverter
             return numberInWords.ToString();
         }
 
-        private string ConvertQuadrillionAndOverToWords(string number)
+        private string ConvertQuadrillionAndOverToWords(string number, ConversionType conversionType = ConversionType.ToWords, CurrencyType currencyType = CurrencyType.None)
         {
             StringBuilder numberInWords = new StringBuilder();
 
@@ -210,10 +246,32 @@ namespace NumberConverter
 
             if (fractionalPart != null)
             {
-                numberInWords.Append(" point");
-                foreach (var num in fractionalPart.ToCharArray())
+                if (conversionType == ConversionType.ToCurrency)
                 {
-                    numberInWords.Append($" {Convert_0_99(double.Parse(num.ToString())).ToLower()}");
+                    if (fractionalPart.Length > 2)
+                        fractionalPart = fractionalPart.Substring(0, 2);
+                    if (currencyType != CurrencyType.None)
+                        numberInWords.Append($" {_Currencies[(int)currencyType]} and {Convert_0_99(double.Parse(fractionalPart.ToString())).ToLower()} cents");
+                    else
+                        numberInWords.Append($" and {Convert_0_99(double.Parse(fractionalPart.ToString())).ToLower()} cents");
+                }
+                else
+                {
+                    numberInWords.Append(" point");
+                    foreach (var num in fractionalPart.ToCharArray())
+                    {
+                        numberInWords.Append($" {Convert_0_99(double.Parse(num.ToString())).ToLower()}");
+                    }
+                }
+            }
+            else
+            {
+                if (conversionType == ConversionType.ToCurrency)
+                {
+                    if (currencyType != CurrencyType.None)
+                    {
+                        numberInWords.Append($" {_Currencies[(int)currencyType]}");
+                    }
                 }
             }
 
@@ -221,21 +279,6 @@ namespace NumberConverter
                 return $"Negative {numberInWords.ToString().ToLower()}";
 
             return numberInWords.ToString();
-        }
-
-        public string ConvertToCurrencyWords(string number)
-        {
-            if (IsValid(number))
-            {
-                return ConvertToCurrencyWords(double.Parse(number));
-            }
-
-            return "Invalid number";
-        }
-
-        public string ConvertToCurrencyWords(double number)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -989,5 +1032,20 @@ namespace NumberConverter
 
             return double.TryParse(number, out double n);
         }
+    }
+
+    public enum ConversionType
+    {
+        ToWords,
+        ToCurrency,
+        ToNumerals,
+        ToRomanNumerals
+    }
+
+    public enum CurrencyType
+    {
+        None,
+        Shillings,
+        Dollars,
     }
 }
